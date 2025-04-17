@@ -1,0 +1,15 @@
+ {
+    "top": "fifo_1r1w_cdc",
+    "files":
+     ["part2/fifo_1r1w_cdc/fifo_1r1w_cdc.sv"
+     ,"part2/fifo_1r1w_cdc/bin2gray.sv"
+     ,"part2/fifo_1r1w_cdc/gray2bin.sv"
+     ,"part2/fifo_1r1w_cdc/ram.sv"
+     ,"part2/fifo_1r1w_cdc/pll.sv"
+     ,"provided/sipo.sv"
+     ,"provided/piso.sv"
+     ,"provided/dff.sv"
+     ,"provided/inv.sv"
+     ,"provided/axis_i2s2_synth.v"
+     ]
+}
