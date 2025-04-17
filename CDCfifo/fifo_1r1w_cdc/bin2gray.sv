@@ -3,7 +3,6 @@ module bin2gray
   (input [width_p - 1 : 0] bin_i
   ,output [width_p - 1 : 0] gray_o);
 
-   // Your code here
   assign gray_o[width_p-1] = bin_i[width_p-1];
   for (genvar i = 0; i < width_p-1; i++)
    begin : grayloop
