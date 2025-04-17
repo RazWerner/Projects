@@ -18,7 +18,7 @@ module fifo_1r1w_cdc
   ,input [0:0] pready_i
   );
    
-  // Write your code here
+
 
   //Next write and read pointers determined combinationally
   logic [depth_log2_p:0] wr_i_n;
