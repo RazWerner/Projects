@@ -31,23 +31,24 @@ module Flasher_SM(
     output [7:0] led,
     output FlashCycle
     );
-    
+
+    //state machine for directional led flash
+    //wires for current states
     wire off;
-    
     wire RF1, RF2, RF3, RF4, RF5, RF6, RF7, RF8, RF9;
     wire LF1, LF2, LF3, LF4, LF5, LF6, LF7, LF8, LF9;
-    
+    //wires for next states
     wire noff;
     wire nRF1, nRF2, nRF3, nRF4, nRF5, nRF6, nRF7, nRF8, nRF9;
     wire nLF1, nLF2, nLF3, nLF4, nLF5, nLF6, nLF7, nLF8, nLF9;
-    
+   
+    //peice of logic validating each time an animation is completed it is counted
     assign FlashCycle = (nLF9 | nRF9);
-    
+
+    //next state and flip flop module instantiations 
     assign noff = (off & (~R2L & ~L2R)) | ((LF9 | RF9)& qsec & ~L2R & ~R2L & Stop);
     
-    
     assign nRF1 = (off & R2L) | ((LF1 | LF2 | LF3 | LF4 | LF5 | LF6 | LF7 | LF8 | LF9) & R2L) | (RF9 & qsec & ~L2R & ~Stop) | (RF1 & ~qsec & ~L2R);
-    
     assign nRF2 = (RF1 & qsec & ~L2R)| (RF2 & ~qsec & ~L2R);
     assign nRF3 = (RF2 & qsec & ~L2R)| (RF3 & ~qsec & ~L2R);
     assign nRF4 = (RF3 & qsec & ~L2R)| (RF4 & ~qsec & ~L2R);
