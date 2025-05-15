@@ -37,13 +37,14 @@ module CounterPosNeg_SM(
     wire posNum;
     wire negOne;
     wire negNum;
-    //next_states
+    //next_states wires
     wire Nxzero;
     wire NxposOne;
     wire NxposNum;
     wire NxnegOne;
     wire NxnegNum;
-    
+
+    //logic for handling next state to determine positive and negative counts
     assign Nxzero = (zero & ~Up & ~Dw) | (posOne & Dw) | (negOne & Up);
     
     assign NxposOne = (zero & Up) | (posOne & ~Up & ~Dw)| (posNum & two & Dw);
@@ -53,13 +54,15 @@ module CounterPosNeg_SM(
     assign NxnegOne = (zero & Dw) | (negOne & ~Up & ~Dw)| (negNum & two & Up);
     
     assign NxnegNum = (negNum & Dw) | (negNum & ~Up & ~Dw) | (negNum & Up & ~two) | (negOne & Dw);
-    
+
+    //flip flops for each state
     FDRE #(.INIT(1'b1) ) zeroStateFF (.C(clk), .R(1'b0), .CE(1'b1), .D(Nxzero), .Q(zero));
     FDRE #(.INIT(1'b0) ) posOneStateFF (.C(clk), .R(1'b0), .CE(1'b1), .D(NxposOne), .Q(posOne));
     FDRE #(.INIT(1'b0) ) posNumStateFF (.C(clk), .R(1'b0), .CE(1'b1), .D(NxposNum), .Q(posNum));
     FDRE #(.INIT(1'b0) ) negOneStateFF (.C(clk), .R(1'b0), .CE(1'b1), .D(NxnegOne), .Q(negOne));
     FDRE #(.INIT(1'b0) ) negNumStateFF (.C(clk), .R(1'b0), .CE(1'b1), .D(NxnegNum), .Q(negNum));
-    
+
+    //final assignments
     assign an[0] = 1'b0;
     assign an[1] = 1'b0;
     assign an[2] = posOne | posNum | zero;
